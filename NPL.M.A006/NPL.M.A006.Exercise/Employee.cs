@@ -13,11 +13,14 @@ public abstract class Employee
 
     public Employee(){}
 
-    public Employee(string ssn, string firstName, string lastName)
+    public Employee(string ssn, string firstName, string lastName, DateTime birthDate, string phone, string email)
     {
         this.SSN = ssn;
         this.FirstName = firstName;
         this.LastName = lastName;
+        this.BirthDate = birthDate;
+        this.Phone = phone;
+        this.Email = email;
     }
 
     public void Display()

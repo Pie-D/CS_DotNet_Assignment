@@ -47,14 +47,15 @@ public class Program
         string? inp = Console.ReadLine();
         if (String.Compare(inp, "1", StringComparison.Ordinal) == 0)
         {
-            Console.WriteLine("Enter your Type Employee: ");
+            Console.Write("Enter your Type Employee: ");
             string type = Console.ReadLine();
-            if (type == "Hours")
+            if (type == "Hourly")
             {
                 foreach (var employee in hourlyEmployees)
                 {
                     employee.Display();
                 }
+                SearchEmployee();
             }
             else if (type == "Salaried")
             {
@@ -62,22 +63,35 @@ public class Program
                 {
                     employee.Display();
                 }
+                SearchEmployee();
             }
         }
         else
         {
             if (String.Compare(inp, "2", StringComparison.Ordinal) == 0)
             {
-                Console.WriteLine("Enter Name Employee: ");
+                Console.Write("Enter Name Employee: ");
                 string name = Console.ReadLine();
-                foreach (var employee in salariedEmployees)
+                // Console.WriteLine(name);
+                bool check = true;
+                foreach (var employee in employees)
                 {
-                    if (name == employee.FirstName) employee.Display();
+                    if (String.Compare(name, employee.FirstName, StringComparison.Ordinal) == 0)
+                    {
+                        employee.Display();
+                        check = false;
+                    }
+                    // else
+                    // {
+                    //     Console.WriteLine(employee.FirstName);
+                    // }
                 }
-                foreach (var employee in salariedEmployees)
+
+                if (check)
                 {
-                    if (name == employee.FirstName) employee.Display();
+                    Console.WriteLine("Not found!");
                 }
+                SearchEmployee();
             }
             else
             {
@@ -97,6 +111,7 @@ public class Program
             employee.Display();
 
         }
+        Menu();
     }
     public static void ImportEmployee()
     {
@@ -147,12 +162,13 @@ public class Program
             salariedEmployee.Email = email;
             Console.Write("6. CommissionRate: ");
             salariedEmployee.CommissionRate = (double)Console.Read();
-            Console.Read();
+            Console.ReadLine();
             Console.Write("7. GrossSales: ");
             salariedEmployee.GrossSales = (double)Console.Read();
-            Console.Read();
+            Console.ReadLine();
             Console.Write("8. BasicSalary: ");
             salariedEmployee.BasicSalary = (double)Console.Read();
+            Console.ReadLine();
             employees.Add(salariedEmployee);
             salariedEmployees.Add(salariedEmployee);
             Console.WriteLine("Successful import of employee!");
@@ -178,31 +194,32 @@ public class Program
                     hourlyEmployee.BirthDate = result.Date;
                 }
                 
-                Console.WriteLine("4. Phone: ");
+                Console.Write("4. Phone: ");
                 string? phoneNumber = Console.ReadLine();
                 while (phoneNumber == null  || !IsValidPhoneNumber(phoneNumber))
                 {
                     Console.WriteLine("Phone Number is Invalid");
-                    Console.WriteLine("4. Phone: ");
+                    Console.Write("4. Phone: ");
                     phoneNumber = Console.ReadLine();
                 
                 }
 
                 hourlyEmployee.Phone = phoneNumber;
-                Console.WriteLine("5. Email: ");
+                Console.Write("5. Email: ");
                 string? email = Console.ReadLine();
                 while (email == null || !IsValidEmail(email))
                 {
-                    Console.WriteLine("5. Email: ");
+                    Console.Write("5. Email: ");
                     email = Console.ReadLine();
                 }
 
                 hourlyEmployee.Email = email;
-                Console.WriteLine("6. Wage: ");
+                Console.Write("6. Wage: ");
                 hourlyEmployee.Wage = (double)Console.Read();
-                Console.Read();
-                Console.WriteLine("7. WorkingHour: ");
+                Console.ReadLine();
+                Console.Write("7. WorkingHour: ");
                 hourlyEmployee.WorkingHour = (double)Console.Read();
+                Console.ReadLine();
                 employees.Add(hourlyEmployee);
                 hourlyEmployees.Add(hourlyEmployee);
                 Console.WriteLine("Successful import of employee!");
@@ -217,6 +234,13 @@ public class Program
         
     }
 
+    private static DateTime ConvertToDateTime(string birthDate)
+    {
+        string format = "dd/MM/yyyy";
+        DateTime myDate = DateTime.ParseExact(birthDate, format, System.Globalization.CultureInfo.InvariantCulture);
+        Console.WriteLine(myDate);
+        return myDate;
+    }
     private static bool IsValidDateTime(string birthDate)
     {
         string format = "dd/MM/yyyy";
@@ -249,6 +273,19 @@ public class Program
 
     public static void Main(string[] args)
     {
+        employees.Add(new HourlyEmployee(){SSN = "001",FirstName = "Diep",LastName = "Trinh",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        hourlyEmployees.Add(new HourlyEmployee(){SSN = "001",FirstName = "Diep",LastName = "Trinh",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        employees.Add(new HourlyEmployee(){SSN = "002",FirstName = "Long",LastName = "Lanh",BirthDate = ConvertToDateTime("12/12/2003"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        hourlyEmployees.Add(new HourlyEmployee(){SSN = "003",FirstName = "Nam",LastName = "Trinh",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        hourlyEmployees.Add(new HourlyEmployee(){SSN = "002",FirstName = "Long",LastName = "Lanh",BirthDate = ConvertToDateTime("12/12/2003"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        employees.Add(new HourlyEmployee(){SSN = "003",FirstName = "Nam",LastName = "Trinh",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", Wage = 3.0,WorkingHour = 4.5});
+        employees.Add(new SalariedEmployee(){SSN = "004",FirstName = "Lan",LastName = "Nguyen",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com",CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        employees.Add(new SalariedEmployee(){SSN = "005",FirstName = "Ngoc",LastName = "Vu",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com",CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        employees.Add(new SalariedEmployee(){SSN = "006",FirstName = "Van",LastName = "Tran",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        salariedEmployees.Add(new SalariedEmployee(){SSN = "004",FirstName = "Lan",LastName = "Nguyen",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com",CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        salariedEmployees.Add(new SalariedEmployee(){SSN = "005",FirstName = "Ngoc",LastName = "Vu",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com",CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        salariedEmployees.Add(new SalariedEmployee(){SSN = "006",FirstName = "Van",LastName = "Tran",BirthDate = ConvertToDateTime("12/12/2002"),Phone = "0971715520",Email = "trinhquyendiep@gmail.com", CommissionRate = 2.0, GrossSales = 1.4, BasicSalary = 1.7});
+        
         Menu();
     }
 
