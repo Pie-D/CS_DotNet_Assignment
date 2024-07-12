@@ -1,13 +1,17 @@
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace QuizApp.WebAPI.Models;
 
-public class Question
+public partial class Question
 {
-    [Key,Required]
     public Guid Id { get; set; }
-    [Required,StringLength(5000),MinLength(5)]
-    public string? Content { get; set; }
-    [Required]
-    public string? QuestionType { get; set; }
+
+    public string Content { get; set; } = null!;
+
+    public string QuestionType { get; set; } = null!;
+
+    public bool IsActive { get; set; }
+
+    public virtual ICollection<QuizQuestion> QuizQuestions { get; set; } = new List<QuizQuestion>();
 }

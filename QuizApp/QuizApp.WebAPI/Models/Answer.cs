@@ -1,15 +1,17 @@
-
-
-using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
 
 namespace QuizApp.WebAPI.Models;
 
-public class Answer
+public partial class Answer
 {
-    [Key,Required]
     public Guid Id { get; set; }
-    [Required,MaxLength(255),MinLength(5)]
-    public string? Content { get; set; }
-    [Required]
+
+    public string Content { get; set; } = null!;
+
     public bool IsCorrect { get; set; }
+
+    public bool IsActive { get; set; }
+
+    public Guid QuestionId { get; set; }
 }
