@@ -5,7 +5,7 @@ namespace BusinessLogicLayer;
 
 public class QuizRepository : IGenericRepository<Quiz>
 {
-    private IGenericRepository<Quiz> _genericRepositoryImplementation;
+    private GenericRepository<Quiz> _genericRepositoryImplementation;
     public IEnumerable<Quiz> GetAll()
     {
         return _genericRepositoryImplementation.GetAll();
@@ -59,5 +59,10 @@ public class QuizRepository : IGenericRepository<Quiz>
     public IQueryable<Quiz> Get(Expression<Func<Quiz, bool>>? filter = null, Func<IQueryable<Quiz>, IOrderedQueryable<Quiz>>? orderBy = null, string includeProperties = "")
     {
         return _genericRepositoryImplementation.Get(filter, orderBy, includeProperties);
+    }
+
+    public Task<PaginatedResult<Quiz>> GetQuery(Expression<Func<Quiz, bool>>? predicate, Func<IQueryable<Quiz>, IOrderedQueryable<Quiz>>? orderBy, string includeProperties, int pageIndex, int pageSize)
+    {
+        throw new NotImplementedException();
     }
 }

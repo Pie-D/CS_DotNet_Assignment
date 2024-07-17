@@ -4,11 +4,10 @@ namespace BusinessLogicLayer.Services;
 
 public interface IBaseService<T>
 {
-    Task<int> AddAsync(T entity);
-    Task<bool> UpdateAsync(T entity);
-    bool Delete(Guid id);
-    Task<bool> DeleteAsync(Guid id);
-    Task<bool> DeleteAsync(T entity);
+    void AddAsync(T entity);
+    void UpdateAsync(T entity);
+    void DeleteAsync(Guid id);
+    void DeleteAsync(T entity);
     Task<T?> GetByIdAsync(Guid id);
     Task<IEnumerable<T>> GetAllAsync();
     Task<PaginatedResult<T>> GetAsync(Expression<Func<T, bool>>? filter = null,

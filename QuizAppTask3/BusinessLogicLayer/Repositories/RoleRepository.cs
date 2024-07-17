@@ -6,7 +6,7 @@ namespace BusinessLogicLayer;
 
 public class RoleRepository : IGenericRepository<Role>
 {
-    private IGenericRepository<Role> _genericRepositoryImplementation;
+    private GenericRepository<Role> _genericRepositoryImplementation;
     public IEnumerable<Role> GetAll()
     {
         return _genericRepositoryImplementation.GetAll();
@@ -61,4 +61,6 @@ public class RoleRepository : IGenericRepository<Role>
     {
         return _genericRepositoryImplementation.Get(filter, orderBy, includeProperties);
     }
+
+
 }

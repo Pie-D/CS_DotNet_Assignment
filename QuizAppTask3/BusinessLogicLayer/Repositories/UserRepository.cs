@@ -5,7 +5,7 @@ namespace BusinessLogicLayer;
 
 public class UserRepository : IGenericRepository<User>
 {
-    private IGenericRepository<User> _genericRepositoryImplementation;
+    private GenericRepository<User> _genericRepositoryImplementation;
     public IEnumerable<User> GetAll()
     {
         return _genericRepositoryImplementation.GetAll();

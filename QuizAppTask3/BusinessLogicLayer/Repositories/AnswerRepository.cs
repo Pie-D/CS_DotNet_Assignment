@@ -5,7 +5,7 @@ namespace BusinessLogicLayer;
 
 public class AnswerRepository : IGenericRepository<Answer>
 {
-    private IGenericRepository<Answer> _genericRepositoryImplementation;
+    private GenericRepository<Answer> _genericRepositoryImplementation;
     public IEnumerable<Answer> GetAll()
     {
         return _genericRepositoryImplementation.GetAll();

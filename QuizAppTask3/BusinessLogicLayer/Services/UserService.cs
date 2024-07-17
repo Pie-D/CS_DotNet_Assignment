@@ -5,45 +5,40 @@ namespace BusinessLogicLayer.Services;
 
 public class UserService : IBaseService<User>
 {
-    private IBaseService<User> _baseServiceImplementation;
-    public Task<int> AddAsync(User entity)
+    private UserRepository _userRepository;
+    public void AddAsync(User entity)
     {
-        return _baseServiceImplementation.AddAsync(entity);
+        _userRepository.Add(entity);
     }
 
-    public Task<bool> UpdateAsync(User entity)
+    public void UpdateAsync(User entity)
     {
-        return _baseServiceImplementation.UpdateAsync(entity);
+         _userRepository.Update(entity);
     }
 
-    public bool Delete(Guid id)
+    public void DeleteAsync(Guid id)
     {
-        return _baseServiceImplementation.Delete(id);
+         _userRepository.Delete(id);
     }
 
-    public Task<bool> DeleteAsync(Guid id)
+    public void DeleteAsync(User entity)
     {
-        return _baseServiceImplementation.DeleteAsync(id);
-    }
-
-    public Task<bool> DeleteAsync(User entity)
-    {
-        return _baseServiceImplementation.DeleteAsync(entity);
+         _userRepository.Delete(entity);
     }
 
     public Task<User?> GetByIdAsync(Guid id)
     {
-        return _baseServiceImplementation.GetByIdAsync(id);
+        return _userRepository.GetByIdAsync(id);
     }
 
     public Task<IEnumerable<User>> GetAllAsync()
     {
-        return _baseServiceImplementation.GetAllAsync();
+        return _userRepository.GetAllAsync();
     }
 
     public Task<PaginatedResult<User>> GetAsync(Expression<Func<User, bool>>? filter = null, Func<IQueryable<User>, IOrderedQueryable<User>>? orderBy = null, string includeProperties = "", int pageIndex = 1,
         int pageSize = 10)
     {
-        return _baseServiceImplementation.GetAsync(filter, orderBy, includeProperties, pageIndex, pageSize);
+        return null;
     }
 }
