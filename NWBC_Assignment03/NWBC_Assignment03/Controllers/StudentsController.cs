@@ -32,7 +32,7 @@ namespace NWBC_Assignment03.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Student>> GetStudent(int id)
         {
-            var student = await _context.Students.FindAsync(id);
+            var student = await _context.Students.Include(e => e.Grade).FirstOrDefaultAsync(s => s.Id == id);
 
             if (student == null)
             {

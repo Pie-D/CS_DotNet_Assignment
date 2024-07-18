@@ -15,7 +15,7 @@ namespace NWBC_Assignment03.Controllers
     public class CoursesController : ControllerBase
     {
         private readonly MyDBContext _context;
-        private readonly ILogger _logger;
+        // private readonly ILogger _logger;
         public CoursesController(MyDBContext context)
         {
             _context = context;
@@ -32,7 +32,7 @@ namespace NWBC_Assignment03.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Course>> GetCourse(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _context.Courses.Include(c => c.Students).FirstOrDefaultAsync(e => e.Id == id);
 
             if (course == null)
             {
@@ -119,11 +119,11 @@ namespace NWBC_Assignment03.Controllers
             return _context.Courses.Any(e => e.Id == id);
         }
 
-        [HttpPost("student")]
-        private async Task<ActionResult<Course>> AddStudent(int idStudent,int idCourse)
+        [HttpPost("student/{idCourse}/{idStudent}")]
+        public async Task<ActionResult<Course>> AddStudent(int idStudent,int idCourse)
         {
-            var student = await _context.Students.FindAsync(idStudent);
-            var course = await _context.Courses.FindAsync(idCourse);
+            Student? student = await _context.Students.FindAsync(idStudent);
+            Course? course = await _context.Courses.Include(c => c.Students).FirstOrDefaultAsync(e => e.Id == idCourse);
             if (course == null || student == null )
             {
                 return BadRequest();
@@ -138,7 +138,7 @@ namespace NWBC_Assignment03.Controllers
             }
             catch (DbUpdateConcurrencyException ex)
             {
-                _logger.LogError(ex, "An error occurred while updating the database.");
+                // _logger.LogError(ex, "An error occurred while updating the database.");
 
                 // Trả về phản hồi cụ thể cho người dùng
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while updating the database. Please try again later.");

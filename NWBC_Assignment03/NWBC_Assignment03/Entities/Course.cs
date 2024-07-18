@@ -11,5 +11,6 @@ public class Course
 
     public string Description { get; set; }
 
-    public ICollection<Student> Students { get; set; } = new List<Student>();
+    public ICollection<Student> Students { get; set; } 
+        // = new List<Student>();
 }
